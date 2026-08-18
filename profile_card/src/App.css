@@ -1,0 +1,26 @@
+:root {
+  --bg: #f4f3f1;
+  --card-bg: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b6b6b;
+  --border: #ececea;
+  --accent: #2b2b2b;
+  --chip-bg: #f6f5f3;
+  --shadow: rgba(20, 20, 20, 0.06);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  font-family: 'Helvetica Neue', Arial, -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 32px;
+}
