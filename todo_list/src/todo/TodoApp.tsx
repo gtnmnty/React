@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
-import "./TodoApp.css";
+import "./css/TodoApp.css";
 
 export interface Todo {
     id: string;
@@ -13,18 +13,21 @@ export default function TodoApp() {
     const [todos, setTodos] = useState<Todo[]>([]);
 
     const handleAdd = (text: string) => {
-        setTodos(text)
+        const newTodo: Todo = { id: crypto.randomUUID(), text, completed: false }
+        setTodos(prev => [...prev, newTodo])
     };
 
-    // const handleToggle = (id: string) => {
-    //     setTodos(todos.map(todo => {
-    //         todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    //     }))
-    // };
+    const handleToggle = (id: string) => {
+        // Use implicit return (no curly braces) inside the map function
+        setTodos(prev =>
+            prev.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo)
+        )
+    };
 
-    // const handleRemove = (id: string) => {
-    //     setTodos()
-    // };
+    const handleRemove = (id: string) => {
+        // Filter out the item matching the id parameter
+        setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+    };
 
     return (
         <div className="todo-app">
