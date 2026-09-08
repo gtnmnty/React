@@ -1,0 +1,196 @@
+/*
+  Design concept: a wall-mounted instrument panel — three gauge readouts
+  side by side, each tinted to the physical character of its scale
+  (Celsius runs cold/blue since 0°C is ice, Fahrenheit runs warm/rust
+  since its everyday range is body heat and weather, Kelvin stays a
+  neutral brass since it's the "lab reference" scale with no negative
+  numbers in ordinary use).
+*/
+
+:root {
+  --panel-bg: #1c2127;
+  --panel-bg-raised: #262c34;
+  --panel-line: #3a414c;
+  --ink: #e9e4d8;
+  --ink-dim: #9aa1ac;
+
+  --cold: #4f8fc0;
+  --heat: #c1602f;
+  --neutral: #b79a5e;
+
+  --radius: 4px;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, Menlo, monospace;
+}
+
+.converter {
+  --cold-dim: #2c4a5e;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+  background: var(--panel-bg);
+  color: var(--ink);
+  border-radius: 8px;
+  font-family: var(--font-mono), serif;
+  box-sizing: border-box;
+}
+
+.converter *,
+.converter *::before,
+.converter *::after {
+  box-sizing: inherit;
+}
+
+.converter__header {
+  text-align: left;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--panel-line);
+}
+
+.converter__title {
+  font-family: var(--font-display), serif;
+  font-weight: 400;
+  font-size: 1.9rem;
+  letter-spacing: 0.01em;
+  margin: 0 0 0.4rem;
+  color: var(--ink);
+}
+
+.converter__subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+  line-height: 1.5;
+}
+
+.converter__fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .converter__fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Field / gauge card --- */
+
+.field {
+  background: var(--panel-bg-raised);
+  border: 1px solid var(--panel-line);
+  border-top: 3px solid var(--field-accent, var(--neutral));
+  border-radius: var(--radius);
+  padding: 1.1rem 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: border-color 150ms ease;
+}
+
+.field--cold {
+  --field-accent: var(--cold);
+}
+.field--heat {
+  --field-accent: var(--heat);
+}
+.field--neutral {
+  --field-accent: var(--neutral);
+}
+
+.field:focus-within {
+  border-color: var(--field-accent);
+}
+
+.field__label {
+  font-size: 0.72rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.04em;
+}
+
+.field__control {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  border-bottom: 1px solid var(--panel-line);
+  padding-bottom: 0.4rem;
+}
+
+.field:focus-within .field__control {
+  border-bottom-color: var(--field-accent);
+}
+
+.field__input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--ink);
+  font-family: var(--font-mono), serif;
+  font-size: 1.6rem;
+  font-variant-numeric: tabular-nums;
+  padding: 0;
+}
+
+.field__input::placeholder {
+  color: var(--ink-dim);
+  opacity: 0.5;
+}
+
+.field__unit {
+  font-size: 1rem;
+  color: var(--field-accent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.field__warning {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--heat);
+}
+
+/* --- Reset button --- */
+
+.converter__reset {
+  margin-top: 1.5rem;
+  background: transparent;
+  border: 1px solid var(--panel-line);
+  color: var(--ink-dim);
+  font-family: var(--font-mono), serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.converter__reset:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: var(--ink-dim);
+}
+
+.converter__reset:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.converter__reset:focus-visible,
+.field__input:focus-visible {
+  outline: 2px solid var(--field-accent, var(--ink-dim));
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field,
+  .field__control,
+  .converter__reset {
+    transition: none;
+  }
+}
