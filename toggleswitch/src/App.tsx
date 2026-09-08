@@ -10,7 +10,7 @@ function App() {
     const cycleTheme = () => {
         setTheme(prev => {
             const next = prev === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', next);
+            document.documentElement.dataset.theme = next;
             return next;
         });
 

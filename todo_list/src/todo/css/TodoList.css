@@ -1,0 +1,24 @@
+.todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.todo-list--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  border: 1px dashed #e5e7eb;
+  border-radius: 10px;
+}
+
+.todo-list__empty-message {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #9ca3af;
+  text-align: center;
+}
