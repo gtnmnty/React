@@ -1,5 +1,5 @@
 import type { Todo } from "./TodoApp";
-import "./TodoItem.css";
+import "./css/TodoItem.css";
 
 interface TodoItemProps {
     todo: Todo;
@@ -7,7 +7,7 @@ interface TodoItemProps {
     onRemove: (id: string) => void;
 }
 
-export default function TodoItem({ todo, onToggle, onRemove }: TodoItemProps) {
+export default function TodoItem({ todo, onToggle, onRemove }: Readonly<TodoItemProps>) {
     return (
         <li className={`todo-item ${todo.completed ? "todo-item--completed" : ""}`}>
             <label className="todo-item__label">

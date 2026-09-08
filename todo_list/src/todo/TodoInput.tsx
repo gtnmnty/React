@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { SubmitEvent } from "react";
-import "./TodoInput.css";
+import "./css/TodoInput.css";
 
 interface TodoInputProps {
     onAdd: (text: string) => void;
